@@ -30,7 +30,7 @@ router.post('/add',(req, res, next)=>{
 		"number": req.body.number,
 		"customer_name": req.body.customer_name,
 		"description": req.body.description,
-		"Narrative": "Not responded",
+		"narrative": "Not responded",
 		"priority": req.body.priority,
 		"status": "New",
 		"date": new Date()
@@ -76,7 +76,7 @@ router.post('/edit/:id',(req, res, next)=>{
 		"number": req.body.number,
 		"customer_name": req.body.customer_name,
 		"description": req.body.description,
-		"Narrative": req.body.Narrative,
+		"narrative": req.body.narrative,
 		"priority": req.body.priority,
 		"status": req.body.status,
 		"date": new Date()
