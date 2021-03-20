@@ -23,23 +23,21 @@ body {
   }
   
   .site-identity h1 {
-    background-color: #f5ba13;
+    background-color: #ebbb39;
     margin: auto -16px;
-    padding: 19px 39px;
+    padding: 19px 35px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
     font-family: "McLaren", cursive;
-    font-size: 30px;
-    text-align: center;
+    font-size: 25px;
+    text-align: right;
   }
   
   .site-identity img {
     max-width: 130px;
-    max-height: 100px;
+    max-height: 90px;
     float: left;
     margin: 0 10px 0 0;
   }
-  
-
   
 .footer {
   
