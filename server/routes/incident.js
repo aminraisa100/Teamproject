@@ -1,4 +1,3 @@
-var moment = require('moment-timezone');
 let express = require('express');
 let router = express.Router();
 let mongoose = require('mongoose');
@@ -27,20 +26,14 @@ router.get('/add',(req, res, next)=>{
 
 /* POST Route for the Processing Add page - CREATE operation */
 router.post('/add',(req, res, next)=>{
-	/* Code to set datetime for created date column */
-	var d = new Date();
-	var myTimezone = "America/Toronto";
-	var myDatetimeFormat= "YYYY-MM-DD hh:mm:ss a z";
-	var myDatetimeString = moment(d).tz(myTimezone).format(myDatetimeFormat);
-	
 	let newIncident = Incident({
 		"number": req.body.number,
 		"customer_name": req.body.customer_name,
 		"description": req.body.description,
-		"narrative": "Not responded",
+		"Narrative": "Not responded",
 		"priority": req.body.priority,
 		"status": "New",
-		"date": myDatetimeString
+		"date": new Date()
 	});
 
 	Incident.create(newIncident, (err, Incident) => {
@@ -52,7 +45,7 @@ router.post('/add',(req, res, next)=>{
 		else
 		{
 			//refresh the Incident List
-			res.redirect('/');
+			res.redirect('/incident-list');
 		}
 	});
 })
@@ -77,22 +70,16 @@ router.get('/edit/:id',(req, res, next)=>{
 /* POST Route for the Processing Edit page - UPDATE operation */
 router.post('/edit/:id',(req, res, next)=>{
 	let id = req.params.id;
-	
-	/* Code to set datetime for created date column */
-	var d = new Date();
-	var myTimezone = "America/Toronto";
-	var myDatetimeFormat= "YYYY-MM-DD hh:mm:ss a z";
-	var myDatetimeString = moment(d).tz(myTimezone).format(myDatetimeFormat);
 
 	let updatedIncident = Incident({
 		"_id": id,
 		"number": req.body.number,
 		"customer_name": req.body.customer_name,
 		"description": req.body.description,
-		"narrative": req.body.narrative,
+		"Narrative": req.body.Narrative,
 		"priority": req.body.priority,
 		"status": req.body.status,
-		"date": myDatetimeString
+		"date": new Date()
 	});
 
 	Incident.updateOne({_id:id}, updatedIncident, (err) => {
@@ -104,7 +91,7 @@ router.post('/edit/:id',(req, res, next)=>{
 		else
 		{
 			//refresh Incident List 
-			res.redirect('/');
+			res.redirect('/incident-list');
 		}
 	});
 })
@@ -122,7 +109,7 @@ router.get('/delete/:id',(req, res, next)=>{
 		else
 		{
 			//refresh Incident List 
-			res.redirect('/');
+			res.redirect('/incident-list');
 		}
 	});
 })
