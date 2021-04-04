@@ -1,148 +1,42 @@
-var moment = require('moment-timezone');
+//incident.js
+
 let express = require('express');
 let router = express.Router();
 let mongoose = require('mongoose');
 
-//Connect to incident Model
-let Incident = require('../models/incident');
+let jwt = require('jsonwebtoken');
 
-/* GET Route for the Incident List page - READ operation */
-router.get('/', (req, res, next) =>{
-	Incident.find((err,incidentList) => {
-		if(err)
-		{
-			return console.log(err);
-		}
-		else
-		{
-			res.render('incident/list', {title: 'Incident Dashboard', IncidentList: incidentList })
-		}
-	});
-});
+let passport = require('passport');
 
-/* GET Route for the Displaying Add page - CREATE operation */
-router.get('/add',(req, res, next)=>{
-	res.render('incident/add', {title: 'Create Incident'})
-})
+let incidentController = require('../controllers/incident');
 
-/* POST Route for the Processing Add page - CREATE operation */
-router.post('/add',(req, res, next)=>{
-	/* Code to set datetime for created date column */
-	var d = new Date();
-	var myTimezone = "America/Toronto";
-	var myDatetimeFormat= "YYYY-MM-DD hh:mm:ss a z";
-	var myDatetimeString = moment(d).tz(myTimezone).format(myDatetimeFormat);
-	
-	/*Code to create Incident number automatically */
-	
-	var year =  myDatetimeString.toString().slice(0,4);
-	var month = myDatetimeString.toString().slice(5,7);
-	var date = myDatetimeString.toString().slice(8,10);
-	var date_time = year.concat(month,date);
-	var n_date_time = Number(date_time)
+// helper function for guard purposes
+function requireAuth(req, res, next)
+{
+    // check if the user is logged in
+    if(!req.isAuthenticated())
+    {
+        return res.redirect('/login');
+    }
+    next();
+}
 
-	
+/* GET Route for the Incident List page  */
+router.get('/', incidentController.displayIncidentsList);
 
-	/*Code to add numbeer after date in Incident*/
+/* GET Route for displaying the Incident Add page  */
+router.get('/add',requireAuth, incidentController.displayAddPage);
 
-	
-	let newIncident = Incident({
-		"number": n_date_time,
-		"customer_name": req.body.customer_name,
-		"description": req.body.description,
-		"narrative": "Not responded",
-		"priority": req.body.priority,
-		"status": "New",
-		"date": myDatetimeString
-	});
+/* POST Route for processing the Incident Add page  */
+router.post('/add', requireAuth, incidentController.processAddPage);
 
-	Incident.create(newIncident, (err, Incident) => {
-		if(err)
-		{
-			console.log(err);
-			res.end(err);
-		}
-		else
-		{
-			//refresh the Incident List
-			res.redirect('/');
-		}
-	});
-})
+/* GET Route for displaying the Incident Edit page */
+router.get('/edit/:id', requireAuth, incidentController.displayEditPage);
 
-/* GET Route for the Displaying Edit page - UPDATE operation */
-router.get('/edit/:id',(req, res, next)=>{
-	let id = req.params.id;
+/* POST Route for processing the Incident Edit page  */
+router.post('/edit/:id', requireAuth, incidentController.processEditPage);
 
-	Incident.findById(id, (err, incidentToEdit) =>{
-		if(err)
-		{
-			console.log(err);
-			res.end(err);
-		}
-		else
-		{
-			//Show Edit View
-			res.render('incident/edit', {title: 'Update Incident', incident: incidentToEdit })
-		}
-	});
-});
-/* POST Route for the Processing Edit page - UPDATE operation */
-router.post('/edit/:id',(req, res, next)=>{
-	let id = req.params.id;
-	
-	/* Code to set datetime for created date column */
-	var d = new Date();
-	var myTimezone = "America/Toronto";
-	var myDatetimeFormat= "YYYY-MM-DD hh:mm:ss a z";
-	var myDatetimeString = moment(d).tz(myTimezone).format(myDatetimeFormat);
-
-	let updatedIncident = Incident({
-		"_id": id,
-		"number": (new Date()).toString(),
-		"customer_name": req.body.customer_name,
-		"description": req.body.description,
-		"narrative": req.body.narrative,
-		"priority": req.body.priority,
-		"status": req.body.status,
-		"date": myDatetimeString
-	});
-
-	Incident.updateOne({_id:id}, updatedIncident, (err) => {
-		if(err)
-		{
-			console.log(err);
-			res.end(err);
-		}
-		else
-		{
-			//refresh Incident List 
-			res.redirect('/');
-		}
-	});
-})
-
-/* GET to perform Deletion- DELETE operation */
-router.get('/delete/:id',(req, res, next)=>{
-	let id = req.params.id
-
-	
-
-	Incident.remove({_id: id}, (err) =>{
-		if(err)
-		{
-			console.log(err);
-			res.end(err);
-		}
-		else
-		{
-			//refresh Incident List 
-			res.redirect('/');
-		}
-	});
-})
-
-
-
+/* GET to perform  Deletion  */
+router.get('/delete/:id', requireAuth, incidentController.performDelete);
 
 module.exports = router;

@@ -1,55 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<%- include ../partials/header.ejs %>
-	</head>
-	<body>
+<%- include ../partials/header.ejs %>
 
-		<main class="container">
-			<div class="row">
-				<div class="col-md-4 col-md-11">
-					<h1><%= title %></h1>
-					<a href="/add" class="btn btn-primary" role="button">
-						Create an Incident
-					</a>
-					<br/>
-					<table class="table table-bordered table-striped table-hover">
-						<!--Header Row-->
-						<tr>
-							<th class="text-center">Incident Number</th>
-							<th class="text-center">Customer Name</th>
-							<th class="text-center">Description</th>
-							<th class="text-center">Narrative</th>
-							<th class="text-center">Priority</th>
-							<th class="text-center">Status</th>
-							<th class="text-center">Created Date</th>
-							<th class="text-center"></th>
-							<th class="text-center"></th>
-						</tr>
+<%- include ../partials/user_nav.ejs %>
+  
 
-						<!-- Repeatable Template Row-->
-						<% for(let count=0; count< IncidentList.length; count++) { %>
-							<tr>
-								<td> <%= IncidentList[count].number %></td>
-								<td> <%= IncidentList[count].customer_name %></td>
-								<td> <%= IncidentList[count].description %></td>
-								<td> <%= IncidentList[count].narrative %></td>
-								<td> <%= IncidentList[count].priority %></td>
-								<td> <%= IncidentList[count].status %></td>
-								<td> <%= IncidentList[count].date %></td>
-								<td class="text-center">
-									<a href="/edit/<%= IncidentList[count]._id %>" class="btn btn-primary">Update</a>
-								</td>
-								<td class="text-center">
-									<a href="/delete/<%= IncidentList[count]._id %>" class="btn btn-warning">Address</a>
-								</td>
-							</tr>
-						<% } %>
-					</table>
-				</div>
-			</div>
-		</main>
-	</body>
-	<%- include ../partials/footer.ejs %>
-</html>
+  <!-- Main Content -->
+  <main class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-11">
+            <h1><%= title %></h1>
+
+            <% if(typeof displayName == 'string' && displayName) { %>
+                <a href="/incident/add" class="btn btn-primary" role="button"> <i class="fas fa-plus-circle"></i>
+                    Create an Incident
+                </a>
+                
+            <% } %>
+
+        
+            <br/>
+            <table class="table table-bordered table-striped table-hover">
+                <!--Header Row-->
+                <tr>
+                    <% if(typeof displayName == 'string' && displayName) { %>
+                    <th class="text-center">Incident Number</th>
+                    <th class="text-center">Customer Name</th>
+                    <th class="text-center">Description</th>
+                    <th class="text-center">Narrative</th>
+                    <th class="text-center">Priority</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Created Date</th>
+                    <th class="text-center"></th>
+                    <th class="text-center"></th>
+                    <% } %>
+                </tr>
+
+                <!-- Repeatable Template Row-->
+                <% for(let count=0; count< IncidentList.length; count++) { %>
+                    <tr>
+                        <% if(typeof displayName == 'string' && displayName) { %>
+                        <td> <%= IncidentList[count].number %></td>
+                        <td> <%= IncidentList[count].customer_name %></td>
+                        <td> <%= IncidentList[count].description %></td>
+                        <td> <%= IncidentList[count].narrative %></td>
+                        <td> <%= IncidentList[count].priority %></td>
+                        <td> <%= IncidentList[count].status %></td>
+                        <td> <%= IncidentList[count].date %></td>
+
+                        <td class="text-center">
+                            <a href="/incident/edit/<%= IncidentList[count]._id %>" class="btn btn-primary btn-sm">
+                                <i class="fas fa-pencil-alt"></i> Update</a>
+                        </td>
+                        <td class="text-center">
+                            <a href="/incident/delete/<%= IncidentList[count]._id %>" class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash-alt"></i> Delete</a>
+                        </td>
+                        <% } %>
+                    </tr>
+                <% } %>
+            </table>
+        </div>
+    </div>
+</main>
+  
+<%- include ../partials/bottom_nav.ejs %>  
+
+<%- include ../partials/footer.ejs %>
+  
+
+
+
+
 
