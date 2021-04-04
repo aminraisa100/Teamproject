@@ -9,7 +9,7 @@
 			<div class="row">
 				<div class="col-md-4 col-md-11">
 					<h1><%= title %></h1>
-					<a href="/incident-list/add" class="btn btn-primary" role="button">
+					<a href="/add" class="btn btn-primary" role="button">
 						Create an Incident
 					</a>
 					<br/>
@@ -38,10 +38,10 @@
 								<td> <%= IncidentList[count].status %></td>
 								<td> <%= IncidentList[count].date %></td>
 								<td class="text-center">
-									<a href="/incident-list/edit/<%= IncidentList[count]._id %>" class="btn btn-primary">Update</a>
+									<a href="/edit/<%= IncidentList[count]._id %>" class="btn btn-primary">Update</a>
 								</td>
 								<td class="text-center">
-									<a href="/incident-list/delete/<%= IncidentList[count]._id %>" class="btn btn-warning">Address</a>
+									<a href="/delete/<%= IncidentList[count]._id %>" class="btn btn-warning">Address</a>
 								</td>
 							</tr>
 						<% } %>
@@ -50,5 +50,6 @@
 			</div>
 		</main>
 	</body>
+	<%- include ../partials/footer.ejs %>
 </html>
 

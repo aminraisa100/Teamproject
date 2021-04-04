@@ -8,7 +8,7 @@ let incidentModel = mongoose.Schema({
 	narrative: String,
 	priority: String,
 	status: String,
-	date: { type: Date}
+	date: String
 },
 {
 	collection: "incidents"

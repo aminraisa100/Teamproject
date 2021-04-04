@@ -1,3 +1,4 @@
+var moment = require('moment-timezone');
 let express = require('express');
 let router = express.Router();
 let mongoose = require('mongoose');
@@ -26,14 +27,33 @@ router.get('/add',(req, res, next)=>{
 
 /* POST Route for the Processing Add page - CREATE operation */
 router.post('/add',(req, res, next)=>{
+	/* Code to set datetime for created date column */
+	var d = new Date();
+	var myTimezone = "America/Toronto";
+	var myDatetimeFormat= "YYYY-MM-DD hh:mm:ss a z";
+	var myDatetimeString = moment(d).tz(myTimezone).format(myDatetimeFormat);
+	
+	/*Code to create Incident number automatically */
+	
+	var year =  myDatetimeString.toString().slice(0,4);
+	var month = myDatetimeString.toString().slice(5,7);
+	var date = myDatetimeString.toString().slice(8,10);
+	var date_time = year.concat(month,date);
+	var n_date_time = Number(date_time)
+
+	
+
+	/*Code to add numbeer after date in Incident*/
+
+	
 	let newIncident = Incident({
-		"number": req.body.number,
+		"number": n_date_time,
 		"customer_name": req.body.customer_name,
 		"description": req.body.description,
-		"Narrative": "Not responded",
+		"narrative": "Not responded",
 		"priority": req.body.priority,
 		"status": "New",
-		"date": new Date()
+		"date": myDatetimeString
 	});
 
 	Incident.create(newIncident, (err, Incident) => {
@@ -45,7 +65,7 @@ router.post('/add',(req, res, next)=>{
 		else
 		{
 			//refresh the Incident List
-			res.redirect('/incident-list');
+			res.redirect('/');
 		}
 	});
 })
@@ -70,16 +90,22 @@ router.get('/edit/:id',(req, res, next)=>{
 /* POST Route for the Processing Edit page - UPDATE operation */
 router.post('/edit/:id',(req, res, next)=>{
 	let id = req.params.id;
+	
+	/* Code to set datetime for created date column */
+	var d = new Date();
+	var myTimezone = "America/Toronto";
+	var myDatetimeFormat= "YYYY-MM-DD hh:mm:ss a z";
+	var myDatetimeString = moment(d).tz(myTimezone).format(myDatetimeFormat);
 
 	let updatedIncident = Incident({
 		"_id": id,
-		"number": req.body.number,
+		"number": (new Date()).toString(),
 		"customer_name": req.body.customer_name,
 		"description": req.body.description,
-		"Narrative": req.body.Narrative,
+		"narrative": req.body.narrative,
 		"priority": req.body.priority,
 		"status": req.body.status,
-		"date": new Date()
+		"date": myDatetimeString
 	});
 
 	Incident.updateOne({_id:id}, updatedIncident, (err) => {
@@ -91,7 +117,7 @@ router.post('/edit/:id',(req, res, next)=>{
 		else
 		{
 			//refresh Incident List 
-			res.redirect('/incident-list');
+			res.redirect('/');
 		}
 	});
 })
@@ -99,6 +125,8 @@ router.post('/edit/:id',(req, res, next)=>{
 /* GET to perform Deletion- DELETE operation */
 router.get('/delete/:id',(req, res, next)=>{
 	let id = req.params.id
+
+	
 
 	Incident.remove({_id: id}, (err) =>{
 		if(err)
@@ -109,7 +137,7 @@ router.get('/delete/:id',(req, res, next)=>{
 		else
 		{
 			//refresh Incident List 
-			res.redirect('/incident-list');
+			res.redirect('/');
 		}
 	});
 })

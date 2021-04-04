@@ -1,1 +1,54 @@
 /* Custom CSS goes here */
+body {
+    font-family: Helvetica;
+    margin: 0;
+  }
+  a {
+    text-decoration: none;
+    color: #000;
+  }
+  .site-header { 
+    border-bottom: 1px solid #ccc;
+    padding: .5em 1em;
+  }
+  
+  .site-header::after {
+    content: "";
+    display: table;
+    clear: both;
+   
+  }
+  
+  .site-identity {
+    float: center;
+  }
+  
+  .site-identity h1 {
+    background-color: #f5ba13;
+    margin: auto -16px;
+    padding: 19px 39px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    font-family: "McLaren", cursive;
+    font-size: 30px;
+    text-align: center;
+  }
+  
+  .site-identity img {
+    max-width: 130px;
+    max-height: 100px;
+    float: left;
+    margin: 0 10px 0 0;
+  }
+  
+
+  
+.footer {
+  
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(34, 106, 165);
+  color: black;
+  text-align: center;
+  padding: 16px 32px;
+}
