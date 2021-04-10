@@ -1,16 +1,15 @@
-//index.js
-
 let express = require('express');
 let router = express.Router();
 
-let indexController = require('../controllers/index');
+let indexController = require('../contrllers/index');
 
 /* GET home page. */
 router.get('/', indexController.displayHomePage);
 
-/* GET home page. */
+// GET home page
 router.get('/home', indexController.displayHomePage);
 
+// below is the Authentication code
 /* GET Route for displaying the Login page */
 router.get('/login', indexController.displayLoginPage);
 
@@ -25,5 +24,8 @@ router.post('/register', indexController.processRegisterPage);
 
 /* GET to perform UserLogout */
 router.get('/logout', indexController.performLogout);
+
+
+
 
 module.exports = router;

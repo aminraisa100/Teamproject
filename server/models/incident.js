@@ -1,5 +1,3 @@
-//incident.js
-
 let mongoose = require('mongoose');
 
 //Create Model Class

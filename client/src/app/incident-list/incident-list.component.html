@@ -1,0 +1,61 @@
+<div class="container-fluid">
+	<div class="row">
+		
+		<!--Status -->		
+		<div class="col-3 p-2">
+			<button class="btn btn-block btn-outline-primary" (click) = 'changeStatus()'>
+				All Status
+			</button>
+
+			<button *ngFor = 'let status of status'
+			class="btn btn-outline-primary btn-block"
+				[class.active] = 'status === selectedStatus' (click) ='changeStatus(status)'>
+				{{ status }} 
+			</button>
+			
+		</div>
+		
+		<!-- Incidents -->
+		<div class="col-9 p-2">
+			<div *ngFor='let incident of incidents' class="card m-1 p-1 bg-light">
+				<h4>
+					{{ incident.customer_name}}
+					<span class="badge badge-pill badge-primary float-right">
+					Number: {{ incident.number}}
+					</span>
+				</h4>
+				<div class="card-text bg-white p-1">
+					Description: {{incident.description}}
+
+					<span class="float-right">
+						Priority: {{incident.priority}}
+						<br>
+						Date Created: {{incident.date}}
+					</span>
+
+					<br>
+					{{incident.narrative}}
+				</div>
+			</div>
+			
+			<div class="form-inline float-left mr-1">
+				<select class="form-control" [value] ='incidentsPerPage'
+				(change) = 'changePageSize($event.target.value)'>
+					<option value="3">3 per page</option>
+					<option value="4">4 per page</option>
+					<option value="6">6 per page</option>
+					<option value="8">8 per page</option>
+				</select>
+			</div>
+
+			<div class="btn-group float-right">
+				<button *counter='let page of pageCount' (click) = 'changePage(page)'
+				class="btn btn-outline-primary"
+					[class.active] = 'page == selectedPage'>
+					{{ page }}
+				</button>
+			</div>
+
+		</div>
+	</div>
+</div>

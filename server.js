@@ -4,7 +4,6 @@
  * Module dependencies.
  */
 
-
 var app = require('./server/config/app');
 var debug = require('debug')('incident-site:server');
 var http = require('http');
