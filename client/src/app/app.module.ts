@@ -7,6 +7,15 @@ import { AppComponent } from './app.component';
 import {IncidentListModule } from './incident-list/incident-list.module';
 import { HeaderComponent } from './partials/header/header.component';
 import { FooterComponent } from './partials/footer/footer.component';
+import { JwtModule, JwtHelperService, JwtInterceptor } from '@auth0/angular-jwt';
+import { IncidentListComponent } from './incident-list/incident-list.component';
+import { ListFirstGuard } from './guards/listFirst.guard';
+
+//below function will get id_token from localstorage
+export function jwtTokenGetter(): string
+{
+  return localStorage.getItem('id_token');
+}
 
 
 @NgModule({
@@ -19,9 +28,15 @@ import { FooterComponent } from './partials/footer/footer.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-	IncidentListModule
+	IncidentListModule,
+  
+  JwtModule.forRoot({
+    config: {
+      tokenGetter: jwtTokenGetter
+    }
+  })
   ],
-  providers: [],
+  providers: [ListFirstGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

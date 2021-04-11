@@ -68,7 +68,14 @@ module.exports.processLoginPage = (req, res, next) => {
                 expiresIn: 604800 
             });
 
-            return res.redirect('/incident');
+            return res.json({success: true, msg: 'User logged in Successfully!', user: {
+                id: user._id,
+                displayName: user.displayName,
+                username: user.username,
+                email: user.email
+            }, token: authToken});
+
+            //return res.redirect('/incident');
         });
     })(req, res, next);
 }
@@ -121,14 +128,21 @@ module.exports.processRegisterPage = (req, res, next) => {
         else
         {
             // if no error exists, then registration is successful
+            
+            return res.json({success: true, msg: 'User registered Successfully!'});
+
+            /*
             return passport.authenticate('local')(req, res, () => {
                 res.redirect('/incident')
             });
+            */
         }
     });
 }
 
 module.exports.performLogout = (req, res, next) => {
     req.logout();
-    res.redirect('/');
+    //res.redirect('/');
+
+    res.json({success: true, msg: 'User Successfully logged out!'});
 }

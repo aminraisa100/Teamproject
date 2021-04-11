@@ -1,6 +1,6 @@
 //IIFE -  Immediately Invoked Function Expression
 (function(){
-	function Start(): void
+	function Start()
 	{
 		console.log('App started...');
 	}

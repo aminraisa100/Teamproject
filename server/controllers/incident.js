@@ -17,17 +17,25 @@ module.exports.displayIncidentsList = (req, res, next) => {
 		}
 		else
 		{
+			/*
 			res.render('incident/list', 
             {title: 'Incident Dashboard', 
             IncidentList: incidentList,
             displayName: req.user ? req.user.displayName : ''});
+			*/
+
+			res.json(incidentList);
 		}
 	});
 }
 
 module.exports.displayAddPage = (req, res, next) => {
-    res.render('incident/add', {title: 'Create Incident',
+    /*
+	res.render('incident/add', {title: 'Create Incident',
     displayName: req.user ? req.user.displayName : ''})      
+	*/
+
+	res.json({success: true, msg: 'Successfully Displayed Add Page'});
 }
 
 
@@ -70,7 +78,9 @@ module.exports.processAddPage = (req, res, next) => {
 		else
 		{
 			//refresh the Incident List
-			res.redirect('/incident');
+			//res.redirect('/incident');
+
+			res.json({success: true, msg: 'Successfully Added a New Incident'});
 		}
 	});
 
@@ -88,8 +98,12 @@ module.exports.displayEditPage = (req, res, next) => {
 		else
 		{
 			//Show Edit View
+			/*
 			res.render('incident/edit', {title: 'Update Incident', incident: incidentToEdit,
             displayName: req.user ? req.user.displayName : ''})
+			*/
+
+			res.json({success: true, msg: 'Successfully Displayed Incident to Edit', incident: incidentToEdit});
 		}
 	});
 }
@@ -123,7 +137,9 @@ module.exports.processEditPage = (req, res, next) => {
 		else
 		{
 			//refresh Incident List 
-			res.redirect('/incident');
+			//res.redirect('/incident');
+			
+			res.json({success: true, msg: 'Successfully Edited an Incident', incident: updatedIncident});
 		}
 	});
 }
@@ -140,7 +156,9 @@ module.exports.performDelete = (req, res, next) => {
 		else
 		{
 			//refresh Incident List 
-			res.redirect('/incident');
+			//res.redirect('/incident');
+
+			res.json({success: true, msg: 'Successfully Deleted an Incident'});
 		}
 	});
 }

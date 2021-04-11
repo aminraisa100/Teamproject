@@ -1,15 +1,65 @@
-
-<%- include partials/header.ejs %>
-
-
-  <main class="container">
-    <div class="jumbotron" >
-      <h4 class="display-4">Team Project <%=title%> page</h4>
-    </div>
-  </main>
-
- 
-  <%- include partials/footer.ejs %>
+<%- include partials/header.ejs%>
 
 
- 
+
+<%- include partials/main_nav.ejs%>
+
+  <html>
+    <div class="container-fluid">
+       <div class="row">
+          <div class="col-sm-12 toppart">
+             <h6 class="display-4" style = "text-align: center"> <b> Team Project <%=title%> page </b></h6>
+          </div>
+    
+       </div>
+       <div class="row">
+          <div class="col-sm-12 slogan">
+             <p style = "text-align: center"><b> SERVICE NOW: INCIDENT REPORTING SITE </b> </p>
+          </div>
+    
+       </div>
+    
+       <div class="row">
+          <div class="col-sm-12 whatwedo">
+             <p class="whitetext slightlybigger" style = "text-align: center"> If employees have any issues while using app:
+             </p>
+             <br>
+             <p class="whitetext" style = "text-align: center"> Employees can create incident to report the incident. Incident is another word for 
+               Tickets or Case. Options are given to create, update and delete incidents, and any individual should be 
+               able to see all open incidents in a table format.
+          </div>
+          
+       </div>
+       <div>
+          
+             <div class="col-sm-3 somepad">
+                <div class=" flitskaart whitetext">
+                   <p class="ptext"><i class="  fa fa-lg fa-desktop"></i></p>
+                </div>
+             </div>
+             <div class="col-sm-3 somepad">
+                <div class=" flitskaart1 whitetext">
+                   <p class="ptext1"><i class="  fa fa-lg fa-calendar"></i></p>
+                </div>
+             </div>
+             <div class="col-sm-3 somepad">
+    
+                <div class=" flitskaart2 whitetext">
+                   <p class="ptext2"><i class="  fa fa-cog fa-spin fa-lg fa-fw"></i></p>
+                </div>
+             </div>
+             <div class="col-sm-3 somepad">
+    
+                <div class=" flitskaart3 whitetext">
+                   <p class="ptext3"><i class="  fa fa-lg fa-user"></i></p>
+                </div>
+             </div>
+    
+          </div>
+       </div>
+    </div>    
+    </html>
+  
+<%- include partials/bottom_nav.ejs%>
+  
+<%- include partials/footer.ejs%>

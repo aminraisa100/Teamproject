@@ -11,4 +11,19 @@ export class Incident
 		public date?: string
 
 	){}
+
+	public toString(): string
+	{
+		return `Incident
+		----------------------------------
+		Number     : ${this.number}
+		Name       : ${this.customer_name}
+		Description: ${this.description}
+		Narrative  : ${this.narrative}
+		Priority   : ${this.priority}
+		Status     : ${this.status}
+		Date       : ${this.date}
+		----------------------------------
+		`
+	}
 }
