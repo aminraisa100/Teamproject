@@ -55,27 +55,34 @@
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item">
+					<li *ngIf="isLoggedIn()" class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]= "{exact:true}">
 						<!-- link will be highlighted on bases of title string -->
 
-						<a class="nav-link active" href="/home"><i class="fas fa-md fa-home"></i> Home</a>
+						<a class="nav-link active" routerLink="/home"><i class="fas fa-md fa-home"></i> Home</a>
 
 						
 					</li>
 
-
-
-
-
-
-
-
-					<li class="navbar-text"><i class="fas fa-lg fa-user"></i> Welcome, 
+					<li *ngIf="isLoggedIn()" class="nav-item ml-5" [routerLinkActive]="['active']">
+						<a class="nav-link text-warning" routerLink = "/admin/main">
+							<i class="fas fa-lg fa-user-shield"></i> Admin
+						</a>
 					</li>
-					<li class="nav-item"><a href="#" class="nav-link">
-							<i class="fas fa-lg fa-sign-out-alt"></i> Logout</a></li>
 
-					<li class="nav-item"><a href="#" class="nav-link">
+
+					<li *ngIf="isLoggedIn()" class="navbar-text text-success ml-5 mr-5 d-none d-lg-inline">
+						
+							<i class="fas fa-lg fa-user"></i> Welcome, {{user.displayName}}
+						
+					</li>
+					
+					<li *ngIf="isLoggedIn()" class="nav-item">
+						<a (click)= 'onLogoutClick()' routerLink = '/logout' class="nav-link" routerLink = "#">
+							<i class="fas fa-lg fa-sign-out-alt"></i> Logout
+						</a>
+					</li>
+
+					<li *ngIf="!isLoggedIn()" class="nav-item"><a routerLink="/login" class="nav-link">
 							<i class="fas fa-lg fa-sign-in-alt"></i> Login</a></li>
 
 					

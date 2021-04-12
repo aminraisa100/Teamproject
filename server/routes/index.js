@@ -12,7 +12,7 @@ let indexController = require('../controllers/index');
 //router.get('/home', indexController.displayHomePage);
 
 /* GET Route for displaying the Login page */
-//router.get('/login', indexController.displayLoginPage);
+router.get('/login', indexController.displayLoginPage);
 
 /* POST Route for processing the Login page */
 router.post('/login', indexController.processLoginPage);

@@ -8,8 +8,9 @@ import {IncidentListModule } from './incident-list/incident-list.module';
 import { HeaderComponent } from './partials/header/header.component';
 import { FooterComponent } from './partials/footer/footer.component';
 import { JwtModule, JwtHelperService, JwtInterceptor } from '@auth0/angular-jwt';
-import { IncidentListComponent } from './incident-list/incident-list.component';
-import { ListFirstGuard } from './guards/listFirst.guard';
+
+
+
 
 //below function will get id_token from localstorage
 export function jwtTokenGetter(): string
@@ -22,8 +23,8 @@ export function jwtTokenGetter(): string
   declarations: [
     AppComponent,
     HeaderComponent,
-    FooterComponent
-  
+    FooterComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -36,7 +37,7 @@ export function jwtTokenGetter(): string
     }
   })
   ],
-  providers: [ListFirstGuard],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
