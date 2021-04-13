@@ -98,7 +98,7 @@ passport.use(strategy);
 // routing
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/incident-list', incidentRouter);
+app.use('/home', incidentRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

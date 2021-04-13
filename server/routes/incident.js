@@ -25,18 +25,18 @@ function requireAuth(req, res, next)
 router.get('/', incidentController.displayIncidentsList);
 
 /* GET Route for displaying the Incident Add page  */
-router.get('/add',requireAuth, incidentController.displayAddPage);
+//router.get('/add',requireAuth, incidentController.displayAddPage);
 
 /* POST Route for processing the Incident Add page  */
-router.post('/add', requireAuth, incidentController.processAddPage);
+router.post('/add', passport.authenticate("jwt", {session: false}), incidentController.processAddPage);
 
 /* GET Route for displaying the Incident Edit page */
-router.get('/edit/:id', requireAuth, incidentController.displayEditPage);
+//router.get('/edit/:id', requireAuth, incidentController.displayEditPage);
 
 /* POST Route for processing the Incident Edit page  */
-router.post('/edit/:id', requireAuth, incidentController.processEditPage);
+router.post('/edit/:id', passport.authenticate("jwt", {session: false}), incidentController.processEditPage);
 
 /* GET to perform  Deletion  */
-router.get('/delete/:id', requireAuth, incidentController.performDelete);
+router.get('/delete/:id', passport.authenticate("jwt", {session: false}), incidentController.performDelete);
 
 module.exports = router;

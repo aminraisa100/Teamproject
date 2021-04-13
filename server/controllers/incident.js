@@ -147,7 +147,7 @@ module.exports.processEditPage = (req, res, next) => {
 module.exports.performDelete = (req, res, next) => {
     let id = req.params.id;
 
-	Incident.remove({_id: id}, (err) =>{
+	Incident.deleteOne({_id: id}, (err) =>{
 		if(err)
 		{
 			console.log(err);

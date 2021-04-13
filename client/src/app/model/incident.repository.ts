@@ -34,4 +34,27 @@ export class IncidentRepository
 	{
 		return this.status;
 	}
+
+	saveIncident(savedIncident: Incident): void
+	{
+		if (savedIncident._id === null || savedIncident._id === 0 || savedIncident === undefined )
+		{
+			this.dataSource.addIncident(savedIncident).subscribe(i => {
+				this.incidents.push(savedIncident);
+			});
+		}
+		else
+		{
+			this.dataSource.updateIncident(savedIncident).subscribe(incident => {
+				this.incidents.splice(this.incidents.findIndex(i => i._id === savedIncident._id), 1, savedIncident)
+			})
+		}
+	}
+
+	deleteIncident(deletedIncidentID : number): void
+	{
+		this.dataSource.deleteIncident(deletedIncidentID).subscribe(incident => {
+			this.incidents.splice(this.incidents.findIndex(i => i._id === deletedIncidentID), 1);
+		})
+	}
 }

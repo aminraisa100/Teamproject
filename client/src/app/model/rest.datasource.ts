@@ -36,7 +36,7 @@ export class RestDataSource
 
 	getIncidents(): Observable<Incident[]>
 	{
-		return this.http.get<Incident[]>(this.baseUrl + 'incident-list');
+		return this.http.get<Incident[]>(this.baseUrl + 'home');
 	
 	}
 
@@ -68,11 +68,30 @@ export class RestDataSource
 		return !this.jwtService.isTokenExpired(this.authToken);
 	}
 
+	addIncident(incident: Incident): Observable<Incident>
+	{
+		this.loadToken();
+		return this.http.post<Incident>(this.baseUrl + 'home/add', incident, this.httpOptions);
+	}
+
+	updateIncident(incident: Incident): Observable<Incident>
+	{
+		this.loadToken();
+		return this.http.post<Incident>(`${this.baseUrl}home/edit/${incident._id}`, incident, this.httpOptions);
+	}
+
+	deleteIncident(id: number): Observable<Incident>
+	{
+		
+		return this.http.get<Incident>(`${this.baseUrl}home/delete/${id}`, this.httpOptions);
+	}
+
 	private loadToken(): void
 	{
 		const token = localStorage.getItem('id_token');
 		this.authToken = token;
 		this.httpOptions.headers = this.httpOptions.headers.set('Authorization', this.authToken);
+		
 	}
 
 }

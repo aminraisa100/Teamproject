@@ -20,7 +20,7 @@ export class ListFirstGuard
 			this.firstNavigation = false;
 			if (route.component !==  IncidentListComponent)
 			{
-				this.router.navigateByUrl('/home');
+				this.router.navigateByUrl('/');
 				return false;
 			}
 		}

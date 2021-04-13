@@ -1,0 +1,36 @@
+<table class="table table-sm table-striped">
+    <thead>
+        <tr>
+            <th>Incident Number</th>
+            <th>Customer Name</th>
+            <th>Incident Description</th>
+            <th>Incident Narrative</th>
+            <th>Priority</th>
+            <th>Incident Status</th>
+            <th>Created Date</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+       <tr *ngFor = 'let i of getIncidents()'>
+           <td>{{ i.number}}</td>
+           <td>{{ i.customer_name}}</td>
+           <td>{{ i.description }}</td>
+           <td>{{ i.narrative }}</td>
+           <td> {{ i.priority }}</td>
+           <td> {{ i.status }}</td>
+           <td>{{ i.date }}</td>
+           <td>
+                <a routerLink="/admin/main/incidents/edit/{{ i._id }}" class="btn btn-sm btn-primary m-1">
+                    <i class="fas fa-pencil-alt"></i> Edit
+                </a>
+           </td>
+           <td>
+               <button class="btn btn-sm btn-danger m-1" (click)= 'deleteIncident(i._id)'><i class="fas fa-trash-alt"></i> Delete
+                </button>
+           </td>
+       </tr> 
+    </tbody>
+</table>
+<button class="btn btn-primary" routerLink= "/admin/main/incidents/add"><i class="fas fa-plus-circle"></i>Create new Incident</button>
